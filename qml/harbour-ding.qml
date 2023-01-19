@@ -16,16 +16,18 @@ ApplicationWindow
             text: "Ding !"
             enabled: ding.status != NonGraphicalFeedback.Playing
             onClicked: ding.play()
+            // Component.onCompleted: ding.play()
         }
     }
 
     NonGraphicalFeedback {
         id: ding
-        event: "battery_low" //"email_exists"
+        event: "email_exists" // "calendar" //"battery_low" //"email_exists"
         onStatusChanged: {
             if (status == NonGraphicalFeedback.Playing) {
                 count += 1
-            } else if (status == NonGraphicalFeedback.Stopped && count > 0) {
+                stop()
+            } else if (status == NonGraphicalFeedback.Stopped && count < 10) {
                 play()
             }
         }
